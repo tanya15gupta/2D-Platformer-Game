@@ -6,10 +6,13 @@ public class PlayerController : MonoBehaviour
 {
 
     public Animator anim;
+    private BoxCollider2D boxCol;
+
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        boxCol = this.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -35,12 +38,26 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKey(KeyCode.LeftControl))
         {
-            anim.SetBool("Crouch", true);
+            Movement();
+        
         }
-        else
-        {
-            anim.SetBool("Crouch", false);
-        }
-
     }
+    
+    public void Movement()
+    {
+        float offX = -0.0978f;
+        float offY = 0.5947f;
+        float offZ = 0.0f;
+
+        float sizeX = 0.6988f;
+        float sizeY = 1.3398f;
+        float sizeZ = 0.0f;
+            
+        anim.SetBool("Crouch", true);
+
+        boxCol.size = new Vector3(sizeX, sizeY, sizeZ);
+        boxCol.offset = new Vector3(offX, offY , offZ);    
+        
+    }
+
 }
