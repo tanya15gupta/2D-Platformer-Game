@@ -16,28 +16,45 @@ public class AnyStateAnimTest : MonoBehaviour
     {
         
         AnyStateTrying();
+        
+        
     }
 
     public void AnyStateTrying()
     {
+        if(Input.GetKey(KeyCode.A))
+        {
+            anim.SetFloat("Speed", 2);
+        }
+
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            anim.SetFloat("Speed", 5);
+        }
+
+        if(Input.GetKey(KeyCode.None))
+        {
+            anim.SetFloat("Speed", 0);
+        }
+
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            anim.SetBool("Jump", true);
-            anim.SetBool("Staff_Attack", false);
-            anim.SetBool("Crouch", false);
+            anim.SetTrigger("Jump");
+            //anim.SetBool("Staff_Attack", false);
+            //anim.SetBool("Crouch", false);
         }
 
         if(Input.GetKeyDown(KeyCode.Z))
         {
-            anim.SetBool("Jump", false);
-            anim.SetBool("Staff_Attack", true);
-            anim.SetBool("Crouch", false);
+            //anim.SetBool("Jump", false);
+            anim.SetTrigger("Staff_Attack");
+            //anim.SetBool("Crouch", false);
         }
 
         if(Input.GetKeyDown(KeyCode.S))
         {
-            anim.SetBool("Jump", false);
-            anim.SetBool("Staff_Attack", false);
+            //anim.SetBool("Jump", false);
+            //anim.SetBool("Staff_Attack", false);
             anim.SetBool("Crouch", true);
         }
     }
