@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    public Animator anim;
+    public Animator anim;           
     private BoxCollider2D boxCol;
 
     
@@ -18,11 +18,22 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float speed = Input.GetAxis("Horizontal");
+        float speed = Input.GetAxis("Horizontal");      //player movement left and right
+        float jump = Input.GetAxis("Vertical");         //player movement jump
 
-        anim.SetFloat("Speed", Mathf.Abs(speed));
+        anim.SetFloat("Speed", Mathf.Abs(speed));       //speed for movement
+        anim.SetFloat("Jump", Mathf.Abs(jump));         //jump for jumping
 
-        
+        if(jump > 0)
+        {
+            anim.SetFloat("Jump", jump);
+            //jump = Mathf.Abs(jump);
+        }
+        else if(jump < 0)
+        {
+            anim.SetFloat("Jump", jump);
+        }
+
         Vector3 scale = transform.localScale;
 
         if(speed<0)
@@ -36,14 +47,21 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
 
-        if(Input.GetKey(KeyCode.LeftControl))
+
+
+
+        if(Input.GetKeyDown(KeyCode.LeftControl))
         {
-            Movement();
-        
+            Crouch();
         }
+        else if(Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            anim.SetBool("Crouch", false);
+        }
+        
     }
     
-    public void Movement()
+    public void Crouch()
     {
         float offX = -0.0978f;
         float offY = 0.5947f;
@@ -57,6 +75,11 @@ public class PlayerController : MonoBehaviour
 
         boxCol.size = new Vector3(sizeX, sizeY, sizeZ);
         boxCol.offset = new Vector3(offX, offY , offZ);    
+        
+    }
+
+    public void Jump()
+    {
         
     }
 
