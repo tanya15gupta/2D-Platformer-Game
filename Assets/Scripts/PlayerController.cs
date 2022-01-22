@@ -8,6 +8,15 @@ public class PlayerController : MonoBehaviour
     public Animator anim;           
     private BoxCollider2D boxCol;
 
+    float offX = -0.00984f;
+    float offY = 0.9908f;
+    float offZ = 0.0f;
+
+    float sizeX = 0.4876f;
+    float sizeY = 2.1321f;
+    float sizeZ = 0.0f;
+    int count = 0;
+
     
     // Start is called before the first frame update
     void Start()
@@ -27,7 +36,6 @@ public class PlayerController : MonoBehaviour
         if(jump > 0)
         {
             anim.SetFloat("Jump", jump);
-            //jump = Mathf.Abs(jump);
         }
         else if(jump < 0)
         {
@@ -50,13 +58,19 @@ public class PlayerController : MonoBehaviour
 
 
 
-        if(Input.GetKeyDown(KeyCode.LeftControl))
+        if(Input.GetKey(KeyCode.LeftControl))
         {
+            
             Crouch();
+            Debug.Log("Counter :" + count++);
+            
         }
         else if(Input.GetKeyUp(KeyCode.LeftControl))
         {
             anim.SetBool("Crouch", false);
+            boxCol.size = new Vector3(sizeX, sizeY, sizeZ);
+            boxCol.offset = new Vector3(offX, offY , offZ);    
+
         }
         
     }
@@ -75,11 +89,6 @@ public class PlayerController : MonoBehaviour
 
         boxCol.size = new Vector3(sizeX, sizeY, sizeZ);
         boxCol.offset = new Vector3(offX, offY , offZ);    
-        
-    }
-
-    public void Jump()
-    {
         
     }
 
