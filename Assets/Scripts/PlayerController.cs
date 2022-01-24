@@ -15,67 +15,79 @@ public class PlayerController : MonoBehaviour
     float sizeX = 0.4876f;
     float sizeY = 2.1321f;
     float sizeZ = 0.0f;
-    int count = 0;
+    public float speed = 5f;
+    private Rigidbody2D rb;
+    public float jumpForce = 2f;
+
 
     
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         boxCol = this.GetComponent<BoxCollider2D>();
+        rb = this.gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float speed = Input.GetAxis("Horizontal");      //player movement left and right
-        float jump = Input.GetAxis("Vertical");         //player movement jump
+        float horizontalInput = Input.GetAxis("Horizontal");      //player Flipping left and right
+        float verticalInput = Input.GetAxisRaw("Jump");         //player jump animation
+        PlayerMovementAnimation(horizontalInput, verticalInput);
+        MoveCharacter(horizontalInput, verticalInput);
 
-        anim.SetFloat("Speed", Mathf.Abs(speed));       //speed for movement
-        anim.SetFloat("Jump", Mathf.Abs(jump));         //jump for jumping
-
-        if(jump > 0)
+        //Crouch Animation
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            anim.SetFloat("Jump", jump);
+            Crouch(true);
         }
-        else if(jump < 0)
+        else
         {
-            anim.SetFloat("Jump", jump);
+            Crouch(false);
+            boxCol.size = new Vector3(sizeX, sizeY, sizeZ);
+            boxCol.offset = new Vector3(offX, offY, offZ);
         }
+        
+    }
 
+    private void MoveCharacter(float horizontalInput, float verticalInput)
+    {
+        Vector3 position= transform.position;
+        position.x = position.x + horizontalInput * speed * Time.deltaTime;
+        transform.position = position; 
+
+        if(verticalInput > 0)
+        {
+            rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Force);
+        }
+        
+    }
+
+    private void PlayerMovementAnimation(float horizontalInput, float verticalInput)
+    {
+        anim.SetFloat("Speed", Mathf.Abs(horizontalInput));
         Vector3 scale = transform.localScale;
-
-        if(speed<0)
+        //Flipping Logic
+        if (horizontalInput < 0)
         {
             scale.x = -1.0f * Mathf.Abs(scale.x);
         }
-        
-        else if(speed > 0)
+        else if (horizontalInput > 0)
         {
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
 
-
-
-
-        if(Input.GetKey(KeyCode.LeftControl))
+        if (verticalInput > 0)
         {
-            
-            Crouch();
-            Debug.Log("Counter :" + count++);
-            
+            anim.SetBool("Jump 0", true);
         }
-        else if(Input.GetKeyUp(KeyCode.LeftControl))
+        else
         {
-            anim.SetBool("Crouch", false);
-            boxCol.size = new Vector3(sizeX, sizeY, sizeZ);
-            boxCol.offset = new Vector3(offX, offY , offZ);    
-
+            anim.SetBool("Jump 0", false);
         }
-        
     }
-    
-    public void Crouch()
+
+    public void Crouch(bool crouch)
     {
         float offX = -0.0978f;
         float offY = 0.5947f;
@@ -83,13 +95,14 @@ public class PlayerController : MonoBehaviour
 
         float sizeX = 0.6988f;
         float sizeY = 1.3398f;
-        float sizeZ = 0.0f;
-            
-        anim.SetBool("Crouch", true);
+        float sizeZ = 0.0f; 
+
+        anim.SetBool("Crouch", crouch);
 
         boxCol.size = new Vector3(sizeX, sizeY, sizeZ);
         boxCol.offset = new Vector3(offX, offY , offZ);    
         
     }
+
 
 }
