@@ -5,16 +5,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    public Animator anim;           
+    public Animator anim;
     private BoxCollider2D boxCol;
 
-    float offX = -0.00984f;
-    float offY = 0.9908f;
-    float offZ = 0.0f;
+    float offX;
+    float offY;
+    float offZ;
 
-    float sizeX = 0.4876f;
-    float sizeY = 2.1321f;
-    float sizeZ = 0.0f;
+    float sizeX;
+    float sizeY;
+    float sizeZ;
     public float speed = 5f;
     private Rigidbody2D rb;
     public float jumpForce = 2f;
@@ -44,23 +44,21 @@ public class PlayerController : MonoBehaviour
         else
         {
             Crouch(false);
-            boxCol.size = new Vector3(sizeX, sizeY, sizeZ);
-            boxCol.offset = new Vector3(offX, offY, offZ);
         }
-        
+
     }
 
     private void MoveCharacter(float horizontalInput, float verticalInput)
     {
-        Vector3 position= transform.position;
+        Vector3 position = transform.position;
         position.x = position.x + horizontalInput * speed * Time.deltaTime;
         transform.position = position;
 
         if (verticalInput > 0 && groundCheck.isGrounded == true)
         {
-            rb.velocity =new Vector2(rb.velocity.x, jumpForce); 
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
-        
+
 
     }
 
@@ -91,19 +89,38 @@ public class PlayerController : MonoBehaviour
 
     public void Crouch(bool crouch)
     {
-        float offX = -0.0978f;
-        float offY = 0.5947f;
-        float offZ = 0.0f;
 
-        float sizeX = 0.6988f;
-        float sizeY = 1.3398f;
-        float sizeZ = 0.0f; 
 
-        anim.SetBool("Crouch", crouch);
+        if (crouch == true)
+        {
+            offX = -0.0978f;
+            offY = 0.5947f;
+            offZ = 0.0f;
+
+            sizeX = 0.6988f;
+            sizeY = 1.3398f;
+            sizeZ = 0.0f;
+
+            anim.SetBool("Crouch", crouch);
+        }
+
+        else
+        {
+            offX = -0.00984f;
+            offY = 0.9908f;
+            offZ = 0.0f;
+
+            sizeX = 0.4876f;
+            sizeY = 2.1321f;
+            sizeZ = 0.0f;
+
+            anim.SetBool("Crouch", crouch);
+        }
+
 
         boxCol.size = new Vector3(sizeX, sizeY, sizeZ);
-        boxCol.offset = new Vector3(offX, offY , offZ);    
-        
+        boxCol.offset = new Vector3(offX, offY, offZ);
+
     }
 
 
