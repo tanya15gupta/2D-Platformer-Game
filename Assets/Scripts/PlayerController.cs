@@ -18,9 +18,10 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
     private Rigidbody2D rb;
     public float jumpForce = 2f;
+    public GroundCheck groundCheck;
 
 
-    
+
     void Awake()
     {
         boxCol = this.GetComponent<BoxCollider2D>();
@@ -31,11 +32,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");      //player Flipping left and right
-        float verticalInput = Input.GetAxisRaw("Jump");         //player jump animation
+        float verticalInput = Input.GetAxisRaw("Jump");         //player jump
         PlayerMovementAnimation(horizontalInput, verticalInput);
         MoveCharacter(horizontalInput, verticalInput);
 
-        //Crouch Animation
+        //Crouch
         if (Input.GetKey(KeyCode.LeftControl))
         {
             Crouch(true);
@@ -53,13 +54,14 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 position= transform.position;
         position.x = position.x + horizontalInput * speed * Time.deltaTime;
-        transform.position = position; 
+        transform.position = position;
 
-        if(verticalInput > 0)
+        if (verticalInput > 0 && groundCheck.isGrounded == true)
         {
-            rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Force);
+            rb.velocity =new Vector2(rb.velocity.x, jumpForce); 
         }
         
+
     }
 
     private void PlayerMovementAnimation(float horizontalInput, float verticalInput)
@@ -77,7 +79,7 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
 
-        if (verticalInput > 0)
+        if (verticalInput > 0 && groundCheck.isGrounded == true)
         {
             anim.SetBool("Jump 0", true);
         }
