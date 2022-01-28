@@ -9,13 +9,13 @@ public class GroundCheck : MonoBehaviour
     private void OnTriggerStay2D(Collider2D col)
     {
         isGrounded = true;
-        Debug.Log("on ground");
+        //Debug.Log("on ground");
     }
 
     private void OnTriggerExit2D(Collider2D col)
     {
         isGrounded = false;
-        Debug.Log("off ground");
+        //Debug.Log("off ground");
     }
 
  

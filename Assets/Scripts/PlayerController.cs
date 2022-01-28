@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     public Animator anim;
     private BoxCollider2D boxCol;
 
@@ -38,7 +37,7 @@ public class PlayerController : MonoBehaviour
         PlayerMovementAnimation(horizontalInput, verticalInput);
     }
 
-    void FixedUpdate()
+	void FixedUpdate()
     {
         MoveCharacter(horizontalInput, verticalInput);
 
@@ -62,7 +61,7 @@ public class PlayerController : MonoBehaviour
         if (verticalInput > 0 && groundCheck.isGrounded == true)
         {
             rb.velocity = Vector2.zero;
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         }
 
 
