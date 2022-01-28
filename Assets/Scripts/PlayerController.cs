@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     public float jumpForce = 2f;
     public GroundCheck groundCheck;
+    float horizontalInput;
+    float verticalInput;
 
 
 
@@ -31,9 +33,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");      //player Flipping left and right
-        float verticalInput = Input.GetAxisRaw("Jump");         //player jump
+        horizontalInput = Input.GetAxis("Horizontal");      //player Flipping left and right
+        verticalInput = Input.GetAxisRaw("Jump");         //player jump
         PlayerMovementAnimation(horizontalInput, verticalInput);
+    }
+
+    void FixedUpdate()
+    {
         MoveCharacter(horizontalInput, verticalInput);
 
         //Crouch
@@ -45,7 +51,6 @@ public class PlayerController : MonoBehaviour
         {
             Crouch(false);
         }
-
     }
 
     private void MoveCharacter(float horizontalInput, float verticalInput)
@@ -56,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
         if (verticalInput > 0 && groundCheck.isGrounded == true)
         {
+            rb.velocity = Vector2.zero;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
@@ -77,7 +83,7 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
 
-        if (verticalInput > 0 && groundCheck.isGrounded == true)
+        if (verticalInput > 0)
         {
             anim.SetBool("Jump 0", true);
         }
