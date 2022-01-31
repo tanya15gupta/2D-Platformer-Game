@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FallCheck : MonoBehaviour
 {
@@ -11,7 +10,7 @@ public class FallCheck : MonoBehaviour
 		if (collision.gameObject.GetComponent<PlayerController>())
 		{
 			Debug.Log("Player Dead");
-			gameObject.transform.position = new Vector3(-5.4f, -2.6f, 3.9399f);
+			SceneManager.LoadScene("NewScene");
 		}
 	}
 }
