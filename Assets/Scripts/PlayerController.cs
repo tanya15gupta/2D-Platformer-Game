@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     public Animator anim;
     private BoxCollider2D boxCol;
-
+    public ScoreController scoreController;
     float offX;
     float offY;
     float offZ;
@@ -19,7 +18,14 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 2f;
     public GroundCheck groundCheck;
     float horizontalInput;
-    float verticalInput;
+
+	public void PickUp()
+	{
+        scoreController.IncreaseScore(10);
+
+    }
+
+	float verticalInput;
 
 
 
