@@ -17,16 +17,12 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 2f;
     public GroundCheck groundCheck;
     float horizontalInput;
+    float verticalInput;
 
-	public void PickUp()
-	{
+    public void PickUp()
+    {
         scoreController.IncreaseScore(10);
-
     }
-
-	float verticalInput;
-
-
 
     void Awake()
     {

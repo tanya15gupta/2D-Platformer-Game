@@ -10,7 +10,7 @@ public class FallCheck : MonoBehaviour
 		if (collision.gameObject.GetComponent<PlayerController>())
 		{
 			Debug.Log("Player Dead");
-			SceneManager.LoadScene("NewScene");
+			SceneManager.LoadScene("level1");
 		}
 	}
 }
