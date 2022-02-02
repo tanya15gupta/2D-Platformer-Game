@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090180278}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.18, y: 1.1, z: -38.1}
+  m_LocalPosition: {x: 1.18, y: 1.5, z: -38.1}
   m_LocalScale: {x: 0.70936155, y: 0.70753485, z: 1.5110407}
   m_Children: []
   m_Father: {fileID: 6010111615199764881}
@@ -59,7 +59,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.7565675
+  orthographic size: 4.18544
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -169,7 +169,8 @@ GameObject:
   - component: {fileID: 1414557648}
   - component: {fileID: 1414557649}
   - component: {fileID: 1414557654}
-  m_Layer: 0
+  - component: {fileID: 855565451}
+  m_Layer: 14
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,7 +301,7 @@ Animator:
   m_GameObject: {fileID: 7698438444545968771}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9010efc11521d6444be571967b61a073, type: 2}
+  m_Controller: {fileID: 9100000, guid: b0fd664387040e64aa17c75408dd08cd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -342,3 +343,16 @@ MonoBehaviour:
   speed: 15
   jumpForce: 9
   groundCheck: {fileID: 7677157788586018893}
+--- !u!114 &855565451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7698438444545968771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391dfa5b9b02d234e9a0934ae061b8d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreController: {fileID: 0}
