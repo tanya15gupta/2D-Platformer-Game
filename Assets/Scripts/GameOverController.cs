@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class GameOverController : MonoBehaviour
 {
-	public Button restartButton;
 
 	private void Awake()
 	{
