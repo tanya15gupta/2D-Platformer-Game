@@ -9,17 +9,17 @@ public class PlayerDamage : MonoBehaviour
     public HealthAffected healthAffected;
     public int heartsRemaing;
     public bool playerHit;
+    public GameOverController gameOverController;
     
 	private void OnCollisionEnter2D(Collision2D collision)
     {
-       if (collision.gameObject.GetComponent<PlayerController>())
+       if (collision.gameObject.GetComponent<EnemyPatrol>())
         {
             heartsRemaing = healthAffected.heartsCount;
             if (heartsRemaing > 0)
             {
                 PlayerHit();
                 playerHit = true;
-                Debug.Log("Player hit is true" + playerHit);
             }
             else
             {
@@ -27,7 +27,6 @@ public class PlayerDamage : MonoBehaviour
             }
         }
         playerHit = false;
-        Debug.Log("Player hit is false:" + playerHit);
     }
 
     public void PlayerHit()
@@ -40,16 +39,9 @@ public class PlayerDamage : MonoBehaviour
 
     public void PlayerDead()
 	{
-        Debug.Log("player dead");
         playerAnim.SetTrigger("isDead");
-        StartCoroutine(LoadLevelWait());
+        gameOverController.PanelActive();
     }
-    IEnumerator LoadLevelWait()
-    {
-        //yield on a new YieldInstruction that waits for 2 seconds.
-        yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("Level1");
-
-    }
+    
 
 }

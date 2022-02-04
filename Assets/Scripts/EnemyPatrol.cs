@@ -17,10 +17,9 @@ public class EnemyPatrol : MonoBehaviour
         CheckForWalls();
     }
 
-    private void CheckForWalls()
+	private void CheckForWalls()
     { 
         RaycastHit2D hit = Physics2D.Raycast(groundDetection.position, -transform.up, enemyRaycastingDistance, groundLayer);
-
         // if we hit something, check its tag and act accordingly
         if (hit.collider == false)
         {

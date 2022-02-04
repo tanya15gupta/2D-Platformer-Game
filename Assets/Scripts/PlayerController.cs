@@ -22,12 +22,14 @@ public class PlayerController : MonoBehaviour
     public void PickUp()
     {
         scoreController.IncreaseScore(10);
+        
     }
 
     void Awake()
     {
         boxCol = this.GetComponent<BoxCollider2D>();
         rb = this.gameObject.GetComponent<Rigidbody2D>();
+       
     }
 
     // Update is called once per frame
