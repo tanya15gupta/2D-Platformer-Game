@@ -58,3 +58,7 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Assets/Scripts/PlayerControllerTest.cs
+Assets/Scripts/PlayerControllerTest.cs.meta
+Assets/Scripts/PatrolAI.cs
+Assets/Scripts/PatrolAI.cs.meta

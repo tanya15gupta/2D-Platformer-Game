@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     public void PickUp()
     {
         scoreController.IncreaseScore(10);
-        
     }
 
     void Awake()

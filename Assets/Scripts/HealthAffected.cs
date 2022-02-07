@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class HealthAffected : MonoBehaviour
 {
@@ -19,7 +17,6 @@ public class HealthAffected : MonoBehaviour
             if (i < heartsCount)
             {
                 hearts[i].SetActive(true);
-                Debug.Log("health: " + heartsCount);
             }
             else
 			{
