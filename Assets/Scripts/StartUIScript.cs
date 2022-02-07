@@ -1,11 +1,19 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class StartUIScript : MonoBehaviour
 {
+	public GameObject levelPanel;
+	public GameObject startPanel;
+	private void Awake()
+	{
+		startPanel.SetActive(true);
+		levelPanel.SetActive(false);
+	}
 	public void StartLevel()
 	{
-		SceneManager.LoadScene("Level1");
+		startPanel.SetActive(false);
+		levelPanel.SetActive(true);
+		
 	}
 
 	public void Options()
@@ -15,7 +23,6 @@ public class StartUIScript : MonoBehaviour
 
 	public void Quit()
 	{
-		Debug.Log("Application Closed");
 		Application.Quit();
 	}
 }
