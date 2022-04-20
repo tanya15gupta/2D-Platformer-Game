@@ -12,10 +12,22 @@ public class PlayerDamage : MonoBehaviour
     public GameOverController gameOverController;
     public Transform playerTransform;
     private FallCheck fallCheck;
+    private PlayerController playerController;
+    private bool isCooling = false;
 
-	private void Start()
+    /*
+     * 
+                if(playerHit == true)
+				{
+                    PlayerHit();
+                    playerHit = false;
+                    StartCoroutine(Cooldown());
+                }
+    */
+    private void Start()
 	{
         fallCheck = GetComponent<FallCheck>();
+        playerController = GetComponent<PlayerController>();
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
@@ -25,8 +37,13 @@ public class PlayerDamage : MonoBehaviour
             heartsRemaing = healthAffected.heartsCount;
             if (heartsRemaing > 0)
             {
-                PlayerHit();
-                playerHit = true;
+                if (isCooling == false)
+                {
+                    PlayerHit();
+                    playerHit = true;
+                    StartCoroutine(Cooldown());
+                    isCooling = true;
+                }
             }
             else
             {
@@ -35,6 +52,12 @@ public class PlayerDamage : MonoBehaviour
         }
         playerHit = false;
     }
+
+    private IEnumerator Cooldown()
+	{
+        yield return new WaitForSeconds(2f);
+        isCooling = false;
+	}
 
     public void PlayerHit()
 	{
@@ -47,8 +70,9 @@ public class PlayerDamage : MonoBehaviour
     public void PlayerDead()
 	{
         playerAnim.SetTrigger("isDead");
-        this.enabled = false;
+        playerController.enabled = false;
         gameOverController.PanelActive();
+        
     }
     
     public void HealthDecreased()
